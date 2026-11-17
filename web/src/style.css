@@ -1,0 +1,346 @@
+
+* {
+  box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+      font-family: Arial, sans-serif;
+        background: #f0fdfa;
+          color: #173b3a;
+          }
+
+          button, input {
+            font: inherit;
+            }
+
+            .topbar {
+              display: flex;
+                justify-content: space-between;
+                  align-items: center;
+                    padding: 20px;
+                      background: white;
+                        flex-wrap: wrap;
+                          gap: 12px;
+                          }
+
+                          .brand {
+                            display: flex;
+                              align-items: center;
+                                gap: 10px;
+                                }
+
+                                .brand-icon {
+                                  display: grid;
+                                    place-items: center;
+                                      width: 44px;
+                                        height: 44px;
+                                          border-radius: 14px;
+                                            background: #0f766e;
+                                              color: white;
+                                                font-size: 25px;
+                                                  font-weight: bold;
+                                                  }
+
+                                                  .brand h1 {
+                                                    margin: 0;
+                                                      font-size: 21px;
+                                                      }
+
+                                                      .brand span {
+                                                        color: #0f766e;
+                                                          font-size: 10px;
+                                                            font-weight: bold;
+                                                              letter-spacing: 3px;
+                                                              }
+
+                                                              .location-badge {
+                                                                background: #ccfbf1;
+                                                                  color: #0f766e;
+                                                                    padding: 10px 13px;
+                                                                      border-radius: 20px;
+                                                                        font-size: 12px;
+                                                                        }
+
+                                                                        main {
+                                                                          max-width: 750px;
+                                                                            margin: auto;
+                                                                              padding: 20px;
+                                                                              }
+
+                                                                              .hero {
+                                                                                display: flex;
+                                                                                  align-items: center;
+                                                                                    justify-content: space-between;
+                                                                                      min-height: 230px;
+                                                                                        padding: 28px;
+                                                                                          border-radius: 24px;
+                                                                                            background: linear-gradient(135deg, #0f766e, #14b8a6);
+                                                                                              color: white;
+                                                                                                overflow: hidden;
+                                                                                                }
+
+                                                                                                .hero-content {
+                                                                                                  max-width: 75%;
+                                                                                                  }
+
+                                                                                                  .hero-label {
+                                                                                                    font-size: 11px;
+                                                                                                      font-weight: bold;
+                                                                                                        letter-spacing: 1px;
+                                                                                                        }
+
+                                                                                                        .hero h2 {
+                                                                                                          font-size: 31px;
+                                                                                                            line-height: 1.2;
+                                                                                                              margin: 16px 0 10px;
+                                                                                                              }
+
+                                                                                                              .hero p {
+                                                                                                                font-size: 13px;
+                                                                                                                  line-height: 1.6;
+                                                                                                                    opacity: .9;
+                                                                                                                    }
+
+                                                                                                                    .hero-illustration {
+                                                                                                                      font-size: 65px;
+                                                                                                                      }
+
+                                                                                                                      .services-section {
+                                                                                                                        margin-top: 30px;
+                                                                                                                        }
+
+                                                                                                                        .services-section h2 {
+                                                                                                                          margin-bottom: 5px;
+                                                                                                                          }
+
+                                                                                                                          .services-section > p,
+                                                                                                                          .booking > p {
+                                                                                                                            color: #64748b;
+                                                                                                                              font-size: 13px;
+                                                                                                                              }
+
+                                                                                                                              .services {
+                                                                                                                                display: grid;
+                                                                                                                                  grid-template-columns: repeat(2, 1fr);
+                                                                                                                                    gap: 14px;
+                                                                                                                                      margin-top: 18px;
+                                                                                                                                      }
+
+                                                                                                                                      .service {
+                                                                                                                                        text-align: left;
+                                                                                                                                          border: 2px solid transparent;
+                                                                                                                                            background: white;
+                                                                                                                                              padding: 17px;
+                                                                                                                                                border-radius: 18px;
+                                                                                                                                                  cursor: pointer;
+                                                                                                                                                    color: #173b3a;
+                                                                                                                                                    }
+
+                                                                                                                                                    .service.active {
+                                                                                                                                                      border-color: #0f766e;
+                                                                                                                                                        background: #f0fdfa;
+                                                                                                                                                        }
+
+                                                                                                                                                        .service-icon {
+                                                                                                                                                          font-size: 30px;
+                                                                                                                                                          }
+
+                                                                                                                                                          .service h3 {
+                                                                                                                                                            font-size: 15px;
+                                                                                                                                                              margin-bottom: 6px;
+                                                                                                                                                              }
+
+                                                                                                                                                              .service p {
+                                                                                                                                                                font-size: 12px;
+                                                                                                                                                                  color: #64748b;
+                                                                                                                                                                  }
+
+                                                                                                                                                                  .booking {
+                                                                                                                                                                    background: white;
+                                                                                                                                                                      padding: 23px;
+                                                                                                                                                                        border-radius: 22px;
+                                                                                                                                                                          margin-top: 28px;
+                                                                                                                                                                            box-shadow: 0 5px 20px #0f766e12;
+                                                                                                                                                                            }
+
+                                                                                                                                                                            .booking h2 {
+                                                                                                                                                                              font-size: 21px;
+                                                                                                                                                                              }
+
+                                                                                                                                                                              .booking label {
+                                                                                                                                                                                display: block;
+                                                                                                                                                                                  margin: 17px 0 7px;
+                                                                                                                                                                                    font-size: 13px;
+                                                                                                                                                                                      font-weight: bold;
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                      .booking input {
+                                                                                                                                                                                        width: 100%;
+                                                                                                                                                                                          padding: 14px;
+                                                                                                                                                                                            border: 1px solid #cbd5e1;
+                                                                                                                                                                                              border-radius: 11px;
+                                                                                                                                                                                                outline: none;
+                                                                                                                                                                                                }
+
+                                                                                                                                                                                                .booking input:focus {
+                                                                                                                                                                                                  border-color: #0f766e;
+                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                  .book-button {
+                                                                                                                                                                                                    width: 100%;
+                                                                                                                                                                                                      padding: 15px;
+                                                                                                                                                                                                        margin-top: 22px;
+                                                                                                                                                                                                          border: none;
+                                                                                                                                                                                                            border-radius: 12px;
+                                                                                                                                                                                                              background: #0f766e;
+                                                                                                                                                                                                                color: white;
+                                                                                                                                                                                                                  font-weight: bold;
+                                                                                                                                                                                                                    cursor: pointer;
+                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                    .trust-note {
+                                                                                                                                                                                                                      text-align: center;
+                                                                                                                                                                                                                        color: #64748b;
+                                                                                                                                                                                                                          font-size: 12px;
+                                                                                                                                                                                                                            margin: 25px 0;
+                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                            footer {
+                                                                                                                                                                                                                              text-align: center;
+                                                                                                                                                                                                                                padding: 25px;
+                                                                                                                                                                                                                                  background: white;
+                                                                                                                                                                                                                                    color: #64748b;
+                                                                                                                                                                                                                                      font-size: 13px;
+                                                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                                                      @media (max-width: 400px) {
+                                                                                                                                                                                                                                        .hero {
+                                                                                                                                                                                                                                            padding: 20px;
+                                                                                                                                                                                                                                              }
+
+                                                                                                                                                                                                                                                .hero h2 {
+                                                                                                                                                                                                                                                    font-size: 25px;
+                                                                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                                                                        .hero-illustration {
+                                                                                                                                                                                                                                                            font-size: 48px;
+                                                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                                                              
+
+                                                                                                                                                                                                                                                              /* RIWAYAT PESANAN */
+                                                                                                                                                                                                                                                              .order-history {
+                                                                                                                                                                                                                                                                margin-top: 28px;
+                                                                                                                                                                                                                                                                  padding: 22px;
+                                                                                                                                                                                                                                                                    background: white;
+                                                                                                                                                                                                                                                                      border-radius: 20px;
+                                                                                                                                                                                                                                                                        box-shadow: 0 5px 20px #0f766e12;
+                                                                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                                                                        .order-history h2 {
+                                                                                                                                                                                                                                                                          font-size: 21px;
+                                                                                                                                                                                                                                                                            margin-top: 0;
+                                                                                                                                                                                                                                                                              margin-bottom: 18px;
+                                                                                                                                                                                                                                                                              }
+
+                                                                                                                                                                                                                                                                              .order-card {
+                                                                                                                                                                                                                                                                                padding: 16px;
+                                                                                                                                                                                                                                                                                  margin-bottom: 13px;
+                                                                                                                                                                                                                                                                                    background: #f0fdfa;
+                                                                                                                                                                                                                                                                                      border: 1px solid #ccfbf1;
+                                                                                                                                                                                                                                                                                        border-radius: 14px;
+                                                                                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                                                                                        .order-card h3 {
+                                                                                                                                                                                                                                                                                          margin: 0 0 12px;
+                                                                                                                                                                                                                                                                                            color: #0f766e;
+                                                                                                                                                                                                                                                                                              font-size: 16px;
+                                                                                                                                                                                                                                                                                              }
+
+                                                                                                                                                                                                                                                                                              .order-card p {
+                                                                                                                                                                                                                                                                                                margin: 7px 0;
+                                                                                                                                                                                                                                                                                                  color: #475569;
+                                                                                                                                                                                                                                                                                                    font-size: 13px;
+                                                                                                                                                                                                                                                                                                    }
+/* DESAIN RIWAYAT PESANAN MODERN */
+
+.order-card {
+  background: white;
+    border: 1px solid #d1fae5;
+      border-radius: 18px;
+        padding: 18px;
+          margin-bottom: 15px;
+            box-shadow: 0 4px 14px #0f766e12;
+            }
+
+            .order-card-top,
+            .order-service {
+              display: flex;
+                align-items: center;
+                  justify-content: space-between;
+                    gap: 10px;
+                    }
+
+                    .order-service {
+                      justify-content: flex-start;
+                      }
+
+                      .order-icon {
+                        font-size: 27px;
+                        }
+
+                        .order-card h3 {
+                          margin: 0;
+                            color: #115e59;
+                            }
+
+                            .status-badge {
+                              background: #fef3c7;
+                                color: #92400e;
+                                  padding: 7px 11px;
+                                    border-radius: 20px;
+                                      font-size: 11px;
+                                        font-weight: bold;
+                                        }
+
+                                        .order-route {
+                                          margin-top: 17px;
+                                            padding: 12px;
+                                              background: #f0fdfa;
+                                                border-radius: 12px;
+                                                }
+
+                                                .order-route p {
+                                                  margin: 8px 0;
+                                                    font-size: 13px;
+                                                      color: #475569;
+                                                      }
+                                                      .cancel-order-button {
+                                                          background: #fee2e2;
+                                                            color: #dc2626;
+                                                              border: 1px solid #fecaca;
+                                                                padding: 10px 16px;
+                                                                  border-radius: 10px;
+                                                                    font-weight: 600;
+                                                                      margin-top: 12px;
+                                                                      }
+
+                                                      .clear-orders-button {
+                                                          width: 100%;
+                                                            padding: 13px 18px;
+                                                              margin: 12px 0 18px;
+                                                                background: linear-gradient(135deg, #ef4444, #b91c1c);
+                                                                  color: white;
+                                                                    border: none;
+                                                                      border-radius: 14px;
+                                                                        font-size: 14px;
+                                                                          font-weight: 700;
+                                                                            box-shadow: 0 5px 12px rgba(220, 38, 38, 0.2);
+                                                                              transition: 0.2s ease;
+                                                                              }
+
+                                                                              .clear-orders-button:active {
+                                                                                transform: scale(0.97);
+                                                                                }
+                                                     
