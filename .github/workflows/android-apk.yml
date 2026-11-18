@@ -1,0 +1,62 @@
+name: Build AntarYuk Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: web
+      - name: Build web app
+        run: npm run build
+        working-directory: web
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        
+        
+      - name: Sync Android project
+        run: npx cap sync android
+        working-directory: web
+
+      - name: Build debug APK
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
+        working-directory: web/android
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: AntarYuk-v0.1-debug-apk
+          path: web/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error

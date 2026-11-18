@@ -1,5 +1,7 @@
 
-import React, { useState } from 'react';
+import Auth from './Auth.jsx';
+import React, { useState, useEffect } from 'react';
+import { supabase } from './lib/supabase';
 
 const services = [
   { icon: '🏍', name: 'Ojek Motor', desc: 'Cepat dan praktis' },
@@ -12,38 +14,114 @@ const services = [
           const [selected, setSelected] = useState('Ojek Motor');
             const [pickup, setPickup] = useState('');
               const [destination, setDestination] = useState('');
-const [orders, setOrders] = useState(() => JSON.parse(localStorage.getItem('antaryuk_orders') || '[]'));
-               function clearOrders() {
+const [orders, setOrders] = useState([]);
+  const [session, setSession] = useState(null);
+  const [authReady, setAuthReady] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (mounted) {
+        setSession(session);
+        setAuthReady(true);
+      }
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setAuthReady(true);
+    });
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
+  }, []);
+
+               useEffect(() => {
+  if (!session) {
+    setOrders([]);
+    return;
+  }
+
+  let active = true;
+
+  async function loadOrders() {
+    const { data, error } = await supabase
+      .from('orders')
+      .select('*')
+      .eq('user_id', session.user.id)
+      .order('created_at', { ascending: false });
+
+    if (!active) return;
+
+    if (error) {
+      alert('Gagal memuat pesanan: ' + error.message);
+      return;
+    }
+
+    setOrders(data.map(order => ({
+      ...order,
+      createdAt: new Date(order.created_at).toLocaleString('id-ID'),
+      status: order.status === 'menunggu'
+        ? 'Menunggu'
+        : order.status === 'dibatalkan'
+          ? 'Dibatalkan'
+          : order.status
+    })));
+  }
+
+  loadOrders();
+
+  return () => {
+    active = false;
+  };
+}, [session]);
+
+async function clearOrders() {
   const confirmDelete = window.confirm(
     'Yakin ingin menghapus semua riwayat pesanan?'
   );
 
   if (!confirmDelete) return;
 
-  localStorage.removeItem('antaryuk_orders');
+  const { error } = await supabase
+    .from('orders')
+    .delete()
+    .eq('user_id', session.user.id);
+
+  if (error) {
+    alert('Gagal menghapus riwayat: ' + error.message);
+    return;
+  }
+
   setOrders([]);
-} 
-function cancelOrder(id) {
+}
+
+async function cancelOrder(id) {
   const confirmCancel = window.confirm(
     'Yakin ingin membatalkan pesanan ini?'
   );
 
   if (!confirmCancel) return;
 
-  const updatedOrders = orders.map((order) =>
+  const { error } = await supabase
+    .from('orders')
+    .update({ status: 'dibatalkan' })
+    .eq('id', id)
+    .eq('user_id', session.user.id);
+
+  if (error) {
+    alert('Gagal membatalkan pesanan: ' + error.message);
+    return;
+  }
+
+  setOrders(prev => prev.map(order =>
     order.id === id
       ? { ...order, status: 'Dibatalkan' }
       : order
-  );
-
-  localStorage.setItem(
-    'antaryuk_orders',
-    JSON.stringify(updatedOrders)
-  );
-
-  setOrders(updatedOrders);
+  ));
 }
-function handleBooking(e) {
+
+async function handleBooking(e) {
   e.preventDefault();
 
   if (!pickup.trim() || !destination.trim()) {
@@ -51,33 +129,38 @@ function handleBooking(e) {
     return;
   }
 
+  const { data, error } = await supabase
+    .from('orders')
+    .insert({
+      service: selected,
+      pickup: pickup.trim(),
+      destination: destination.trim(),
+      status: 'menunggu',
+      user_id: session.user.id
+    })
+    .select()
+    .single();
+
+  if (error) {
+    alert('Gagal menyimpan pesanan: ' + error.message);
+    return;
+  }
+
   const order = {
-  id: Date.now(),
-  service: selected,
-  pickup: pickup,
-  destination: destination,
-  status: 'Menunggu',
-  createdAt: new Date().toLocaleString('id-ID')
-};
+    ...data,
+    createdAt: new Date(data.created_at).toLocaleString('id-ID'),
+    status: 'Menunggu'
+  };
 
-  const oldOrders = JSON.parse(
-    localStorage.getItem('antaryuk_orders') || '[]'
-  );
-
-  oldOrders.push(order);
-
-  localStorage.setItem(
-    'antaryuk_orders',
-    JSON.stringify(oldOrders)
-  );
-setOrders([...oldOrders]);
+  setOrders(prev => [order, ...prev]);
   alert('Pesanan berhasil disimpan!');
 
   setPickup('');
   setDestination('');
 }
 
-                                    
+if (!authReady) return <p>Memuat AntarYuk...</p>;
+  if (!session) return <Auth />;
 
                                                 return (
                                                     <div className="app">
@@ -89,7 +172,22 @@ setOrders([...oldOrders]);
                                                                                                               <span>INDONESIA</span>
                                                                                                                         </div>
                                                                                                                                 </div>
-                                                                                                                                        <div className="location-badge">📍 Maluku Utara</div>
+                                                                                                                                        <div className="header-actions">
+  <div className="location-badge">
+    📍 Maluku Utara
+  </div>
+  <div className="profile-avatar" title="Profil pengguna">
+    {(session?.user?.user_metadata?.full_name || session?.user?.email || 'A')
+      .charAt(0).toUpperCase()}
+  </div>
+  <button
+    type="button"
+    className="logout-button"
+    onClick={() => supabase.auth.signOut()}
+  >
+    Logout
+  </button>
+</div>
                                                                                                                                               </header>
 
                                                                                                                                                     <main>
